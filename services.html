@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — Vesta Home Services</title>
+<meta name="description" content="Browse all Vesta home services: cleaning, laundry, childcare, meal prep, beauty, fitness, home improvement and more. Fixed pricing, verified professionals.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/vesta.css">
+<style>
+/* ─── FILTER TABS ────────────────────────── */
+.filter-bar {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+.filter-btn {
+  padding: 8px 20px; border-radius: 100px;
+  background: transparent; border: 1px solid var(--border);
+  color: var(--white-dim); font-size: 0.8rem; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
+  transition: all 0.25s; font-family: 'DM Sans', sans-serif;
+}
+.filter-btn:hover { border-color: var(--gold); color: var(--gold); }
+.filter-btn.active { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+
+/* ─── SERVICE CATEGORY SECTION ───────────── */
+.category-block { margin-bottom: 64px; }
+.category-label {
+  display: flex; align-items: center; gap: 14px;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 28px;
+  padding-bottom: 14px; border-bottom: 1px solid var(--border);
+}
+.category-label::before { content: ''; display: block; width: 20px; height: 1px; background: var(--gold); }
+.category-status { font-size: 0.65rem; padding: 3px 10px; border-radius: 4px; background: rgba(16,185,129,0.15); color: var(--green-accent); border: 1px solid rgba(16,185,129,0.3); }
+.category-status.phase2 { background: rgba(201,168,76,0.15); color: var(--gold); border-color: rgba(201,168,76,0.3); }
+
+/* ─── SERVICE CARDS (full detail) ───────── */
+.services-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+.service-card {
+  background: var(--navy-card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 30px; position: relative;
+  overflow: hidden; transition: all 0.35s; cursor: pointer;
+}
+.service-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  transform: scaleX(0); transform-origin: left; transition: transform 0.4s;
+}
+.service-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-4px); box-shadow: 0 24px 60px rgba(0,0,0,0.5); }
+.service-card:hover::after { transform: scaleX(1); }
+.service-card-icon {
+  width: 52px; height: 52px; border-radius: 13px;
+  background: rgba(201,168,76,0.1); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; margin-bottom: 20px; transition: background 0.3s;
+}
+.service-card:hover .service-card-icon { background: rgba(201,168,76,0.18); }
+.service-card-name { font-size: 1.2rem; font-weight: 600; color: var(--white); margin-bottom: 10px; }
+.service-card-desc { font-size: 0.88rem; color: var(--white-dim); line-height: 1.7; margin-bottom: 20px; }
+.service-card-features { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-bottom: 24px; }
+.service-card-features li { font-size: 0.82rem; color: var(--white-dim); display: flex; align-items: center; gap: 8px; }
+.service-card-features li::before { content: '✓'; color: var(--green-accent); font-weight: 700; flex-shrink: 0; }
+.service-card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--border); }
+.service-card-price { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--gold); }
+.service-card-price span { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; color: var(--white-dim); font-weight: 400; }
+.service-card-badge { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 4px 10px; border-radius: 4px; }
+.badge-live { background: rgba(16,185,129,0.15); color: var(--green-accent); border: 1px solid rgba(16,185,129,0.3); }
+.badge-soon { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid rgba(201,168,76,0.3); }
+
+/* ─── PRICING TABLE ─────────────────────── */
+.pricing-section { background: var(--navy-mid); }
+.pricing-table { width: 100%; border-collapse: collapse; }
+.pricing-table th { padding: 14px 20px; text-align: left; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); border-bottom: 1px solid var(--border); }
+.pricing-table td { padding: 16px 20px; border-bottom: 1px solid rgba(244,237,224,0.05); font-size: 0.9rem; color: var(--white-dim); vertical-align: middle; }
+.pricing-table td:first-child { color: var(--white); font-weight: 600; }
+.pricing-table td:last-child { text-align: right; }
+.pricing-table tr:hover td { background: rgba(201,168,76,0.02); }
+
+/* Trust banner */
+.trust-banner {
+  background: linear-gradient(135deg, rgba(201,168,76,0.06), rgba(201,168,76,0.02));
+  border: 1px solid var(--border); border-radius: 16px; padding: 48px;
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 32px; text-align: center;
+  margin-top: 60px;
+}
+.trust-item-icon { font-size: 2rem; margin-bottom: 12px; }
+.trust-item-title { font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 6px; }
+.trust-item-desc { font-size: 0.82rem; color: var(--white-dim); line-height: 1.6; }
+
+@media(max-width:900px){ .trust-banner { grid-template-columns: 1fr 1fr; } }
+@media(max-width:600px){ .trust-banner { grid-template-columns: 1fr; } .services-detail-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modalPro">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modalPro')">×</button>
+    <h3>Join as a Vesta Professional</h3>
+    <p>Earn $3,000–$8,000/month with flexible hours.</p>
+    <input type="text" placeholder="Full Name *" id="proName">
+    <input type="email" placeholder="Email Address *" id="proEmail">
+    <input type="tel" placeholder="Phone Number">
+    <select id="proService"><option value="">Select Service Type</option><option>Home Cleaning</option><option>Childcare / Nanny</option><option>Meal Prep / Chef</option><option>Laundry Services</option></select>
+    <button class="btn-gold" onclick="submitPro()">Apply Now →</button>
+    <p class="modal-note">Background check required. We'll review within 48 hours.</p>
+  </div>
+</div>
+<div class="modal-overlay" id="modalBook">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modalBook')">×</button>
+    <h3>Book This Service</h3>
+    <p>Get 50% off your first booking.</p>
+    <input type="text" placeholder="Full Name *" id="bookName">
+    <input type="email" placeholder="Email Address">
+    <input type="text" placeholder="ZIP Code (Bay Area only)">
+    <select id="bookService"><option value="">Select Service Type</option><option>Home Cleaning</option><option>Childcare / Nanny</option><option>Meal Prep / Chef</option><option>Laundry Services</option></select>
+    <button class="btn-gold" onclick="submitBook()">Get Early Access →</button>
+    <p class="modal-note">Launching Q3 2025.</p>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo"><div class="nav-logo-icon">V</div>Vesta</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html" class="active">Services</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a class="btn-ghost" onclick="openModal('modalPro')">Join as Pro</a>
+    <a class="btn-gold" onclick="openModal('modalBook')">Book a Service</a>
+  </div>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+  <div class="nav-mobile-cta"><a class="btn-ghost" onclick="openModal('modalPro')">Join as Pro</a><a class="btn-gold" onclick="openModal('modalBook')">Book a Service</a></div>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-dots"></div>
+  <div class="page-hero-label">What We Offer</div>
+  <h1>Every service your<br>home <em>deserves.</em></h1>
+  <p>Phase 1 launches with four core services. Phase 2 expands to 15+ — all verified, tracked, and guaranteed. Fixed pricing. Zero booking fees.</p>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span class="marquee-item">Home Cleaning</span><span class="marquee-item">Laundry & Folding</span><span class="marquee-item">Childcare & Nannies</span><span class="marquee-item">Meal Prep & Chefs</span><span class="marquee-item">Deep Cleaning</span><span class="marquee-item">Move-In/Out</span><span class="marquee-item">Fitness Training</span><span class="marquee-item">Beauty & Wellness</span>
+    <span class="marquee-item">Home Cleaning</span><span class="marquee-item">Laundry & Folding</span><span class="marquee-item">Childcare & Nannies</span><span class="marquee-item">Meal Prep & Chefs</span><span class="marquee-item">Deep Cleaning</span><span class="marquee-item">Move-In/Out</span><span class="marquee-item">Fitness Training</span><span class="marquee-item">Beauty & Wellness</span>
+  </div>
+</div>
+
+<!-- SERVICES CATALOG -->
+<section style="background:var(--navy);">
+  <div class="section-label reveal">Browse Services</div>
+  <h2 class="section-title reveal reveal-delay-1">Available <em>now</em> — and coming soon.</h2>
+
+  <div class="filter-bar reveal reveal-delay-2">
+    <button class="filter-btn active" data-filter="all">All Services</button>
+    <button class="filter-btn" data-filter="domestic">Domestic</button>
+    <button class="filter-btn" data-filter="care">Care</button>
+    <button class="filter-btn" data-filter="wellness">Wellness</button>
+    <button class="filter-btn" data-filter="trade">Trade</button>
+  </div>
+
+  <!-- Phase 1: Live -->
+  <div class="category-block" data-category="domestic">
+    <div class="category-label">🏠 Domestic Services <span class="category-status">Phase 1 · Live Now</span></div>
+    <div class="services-detail-grid">
+      <div class="service-card reveal reveal-delay-1" onclick="openModal('modalBook')">
+        <div class="service-card-icon">🧹</div>
+        <div class="service-card-name">Home Cleaning</div>
+        <div class="service-card-desc">Professional home cleaning tailored to your space. Standard, deep-clean, eco-friendly, and post-construction options available.</div>
+        <ul class="service-card-features">
+          <li>Background-verified cleaner</li>
+          <li>Eco-friendly product options</li>
+          <li>Weekly subscription savings</li>
+          <li>Same professional each visit</li>
+        </ul>
+        <div class="service-card-footer">
+          <div class="service-card-price">$120 <span>– $550</span></div>
+          <span class="service-card-badge badge-live">Live Now</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-2" onclick="openModal('modalBook')">
+        <div class="service-card-icon">✨</div>
+        <div class="service-card-name">Deep Cleaning</div>
+        <div class="service-card-desc">Intensive top-to-bottom clean including inside appliances, baseboards, and hard-to-reach areas. Perfect for seasonal resets.</div>
+        <ul class="service-card-features">
+          <li>Inside oven &amp; refrigerator</li>
+          <li>Window tracks &amp; blinds</li>
+          <li>Inside cabinets &amp; drawers</li>
+          <li>Baseboards &amp; ceiling fans</li>
+        </ul>
+        <div class="service-card-footer">
+          <div class="service-card-price">$220 <span>– $500</span></div>
+          <span class="service-card-badge badge-live">Live Now</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-3" onclick="openModal('modalBook')">
+        <div class="service-card-icon">👕</div>
+        <div class="service-card-name">Laundry & Folding</div>
+        <div class="service-card-desc">Pickup, professional wash, hypoallergenic options, neat folding, and next-day delivery. Same-day rush available.</div>
+        <ul class="service-card-features">
+          <li>Door-to-door pickup &amp; delivery</li>
+          <li>Ozone sanitization available</li>
+          <li>Hypoallergenic detergents</li>
+          <li>Family subscription plans</li>
+        </ul>
+        <div class="service-card-footer">
+          <div class="service-card-price">$59 <span>/ bag + $9.95 delivery</span></div>
+          <span class="service-card-badge badge-live">Live Now</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-4" onclick="openModal('modalBook')">
+        <div class="service-card-icon">🏠</div>
+        <div class="service-card-name">Move-In / Move-Out</div>
+        <div class="service-card-desc">Comprehensive cleaning for move transitions. Landlord-ready finish, security deposit protection, and same-day availability.</div>
+        <ul class="service-card-features">
+          <li>Landlord inspection ready</li>
+          <li>Inside all appliances</li>
+          <li>Carpets &amp; hard floors</li>
+          <li>Same-day availability</li>
+        </ul>
+        <div class="service-card-footer">
+          <div class="service-card-price">$350 <span>– $900</span></div>
+          <span class="service-card-badge badge-live">Live Now</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phase 1: Care -->
+  <div class="category-block" data-category="care">
+    <div class="category-label">❤️ Care Services <span class="category-status">Phase 1 · Live Now</span></div>
+    <div class="services-detail-grid">
+      <div class="service-card reveal reveal-delay-1" onclick="openModal('modalBook')">
+        <div class="service-card-icon">👶</div>
+        <div class="service-card-name">Childcare & Nanny</div>
+        <div class="service-card-desc">Background-checked, CPR-certified caregivers for babysitting, regular nanny services, after-school care, and overnight stays.</div>
+        <ul class="service-card-features">
+          <li>CPR &amp; first aid certified</li>
+          <li>Police background verified</li>
+          <li>Bilingual professionals</li>
+          <li>Overnight care available</li>
+        </ul>
+        <div class="service-card-footer">
+          <div class="service-card-price">$27.50 <span>– $50+/hr</span></div>
+          <span class="service-card-badge badge-live">Live Now</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-2" onclick="openModal('modalBook')">
+        <div class="service-card-icon">🍳</div>
+        <div class="service-card-name">Cooking & Meal Prep</div>
+        <div class="service-card-desc">Hourly personal chefs, weekly meal prep plans for families, dinner party catering, and subscription cooking services.</div>
+        <ul class="service-card-features">
+          <li>Custom diet accommodations</li>
+          <li>Weekly meal plan subscription</li>
+          <li>Dinner party service</li>
+          <li>Grocery sourcing included</li>
+        </ul>
+        <div class="service-card-footer">
+          <div class="service-card-price">$30 <span>– $300+ /session</span></div>
+          <span class="service-card-badge badge-live">Live Now</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-3">
+        <div class="service-card-icon">👴</div>
+        <div class="service-card-name">Elderly Companion Care</div>
+        <div class="service-card-desc">Compassionate companionship, errand assistance, light housekeeping, and transportation for senior family members.</div>
+        <ul class="service-card-features">
+          <li>Trained companion caregivers</li>
+          <li>Transportation assistance</li>
+          <li>Medication reminders</li>
+          <li>Family check-in reports</li>
+        </ul>
+        <div class="service-card-footer">
+          <div class="service-card-price">$25 <span>– $45/hr</span></div>
+          <span class="service-card-badge badge-soon">Coming Q3 2025</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phase 2: Wellness -->
+  <div class="category-block" data-category="wellness">
+    <div class="category-label">💆 Wellness Services <span class="category-status phase2">Phase 2 · Q3 2025</span></div>
+    <div class="services-detail-grid">
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-card-icon">💆</div>
+        <div class="service-card-name">Beauty & In-Home Spa</div>
+        <div class="service-card-desc">Professional hair styling, makeup, massage therapy, and beauty treatments — all in the comfort of your own home.</div>
+        <ul class="service-card-features"><li>Licensed beauty professionals</li><li>Hair, nails, makeup</li><li>Swedish &amp; deep tissue massage</li><li>Bridal &amp; event packages</li></ul>
+        <div class="service-card-footer"><div class="service-card-price">$50 <span>– $250+</span></div><span class="service-card-badge badge-soon">Q3 2025</span></div>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-card-icon">🏋️</div>
+        <div class="service-card-name">Personal Fitness Training</div>
+        <div class="service-card-desc">Certified personal trainers, yoga instructors, and nutritionists for in-home sessions tailored to your goals.</div>
+        <ul class="service-card-features"><li>Certified personal trainers</li><li>Yoga &amp; pilates instructors</li><li>Custom fitness plans</li><li>Nutrition coaching available</li></ul>
+        <div class="service-card-footer"><div class="service-card-price">$75 <span>– $150/hr</span></div><span class="service-card-badge badge-soon">Q3 2025</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phase 2: Trade -->
+  <div class="category-block" data-category="trade">
+    <div class="category-label">🔧 Home Improvement & Trade <span class="category-status phase2">Phase 2 · Q3 2025</span></div>
+    <div class="services-detail-grid">
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-card-icon">🔨</div>
+        <div class="service-card-name">Home Improvement</div>
+        <div class="service-card-desc">Licensed handymen, plumbers, electricians, and painters for any home project — big or small. Fixed quotes, no surprises.</div>
+        <ul class="service-card-features"><li>Licensed &amp; insured tradespeople</li><li>Painting &amp; patching</li><li>Plumbing &amp; electrical</li><li>Furniture assembly</li></ul>
+        <div class="service-card-footer"><div class="service-card-price">$100 <span>– $2,000+</span></div><span class="service-card-badge badge-soon">Q3 2025</span></div>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-card-icon">📦</div>
+        <div class="service-card-name">Moving & Organizing</div>
+        <div class="service-card-desc">Professional packers, movers, and home organizers to make your transition or declutter effortless.</div>
+        <ul class="service-card-features"><li>Professional packers</li><li>Local moving crews</li><li>Home organization</li><li>Declutter &amp; donation runs</li></ul>
+        <div class="service-card-footer"><div class="service-card-price">$100 <span>– $500+/hr</span></div><span class="service-card-badge badge-soon">Q3 2025</span></div>
+      </div>
+      <div class="service-card reveal reveal-delay-3">
+        <div class="service-card-icon">🐕</div>
+        <div class="service-card-name">Pet Care & Dog Walking</div>
+        <div class="service-card-desc">Dog walking, pet sitting, grooming, and veterinary transport from verified animal-loving professionals.</div>
+        <ul class="service-card-features"><li>GPS-tracked walks</li><li>Pet sitting &amp; boarding</li><li>In-home grooming</li><li>Vet transport</li></ul>
+        <div class="service-card-footer"><div class="service-card-price">$25 <span>– $85/session</span></div><span class="service-card-badge badge-soon">Q3 2025</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING TABLE -->
+<section class="pricing-section">
+  <div class="section-label reveal">Transparent Pricing</div>
+  <h2 class="section-title reveal reveal-delay-1">No hidden fees.<br><em>Ever.</em></h2>
+  <p class="section-subtitle reveal reveal-delay-2">What you see is what you pay. No bid wars, no hourly surprises, no booking fees. Fixed pricing guaranteed on every Vesta service.</p>
+  <div style="overflow-x:auto;" class="reveal">
+    <table class="pricing-table">
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>Starting Price</th>
+          <th>Frequency</th>
+          <th>Subscription Discount</th>
+          <th>Availability</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Home Cleaning (Standard)</td><td>$120</td><td>One-time or recurring</td><td>Up to 25% off weekly</td><td><span style="color:var(--green-accent);">● Live Now</span></td></tr>
+        <tr><td>Home Cleaning (Deep)</td><td>$220</td><td>One-time</td><td>10% repeat customer</td><td><span style="color:var(--green-accent);">● Live Now</span></td></tr>
+        <tr><td>Laundry & Folding</td><td>$59/bag + $9.95</td><td>One-time or weekly</td><td>Free delivery on subscriptions</td><td><span style="color:var(--green-accent);">● Live Now</span></td></tr>
+        <tr><td>Childcare / Nanny</td><td>$27.50/hr</td><td>Hourly or subscription</td><td>10% off 20+ hrs/month</td><td><span style="color:var(--green-accent);">● Live Now</span></td></tr>
+        <tr><td>Meal Prep / Chef</td><td>$30/hr</td><td>Hourly or weekly</td><td>15% off weekly plans</td><td><span style="color:var(--green-accent);">● Live Now</span></td></tr>
+        <tr><td>Move-In / Move-Out Clean</td><td>$350</td><td>One-time</td><td>—</td><td><span style="color:var(--green-accent);">● Live Now</span></td></tr>
+        <tr><td>Beauty & Wellness</td><td>$50+</td><td>On-demand</td><td>Subscription packages</td><td><span style="color:var(--gold);">◐ Q3 2025</span></td></tr>
+        <tr><td>Personal Training</td><td>$75/hr</td><td>Hourly or package</td><td>Package discounts</td><td><span style="color:var(--gold);">◐ Q3 2025</span></td></tr>
+        <tr><td>Home Improvement</td><td>$100+</td><td>Project-based</td><td>—</td><td><span style="color:var(--gold);">◐ Q3 2025</span></td></tr>
+        <tr><td>Moving & Organizing</td><td>$100/hr</td><td>Project-based</td><td>—</td><td><span style="color:var(--gold);">◐ Q3 2025</span></td></tr>
+        <tr><td>Pet Care & Dog Walking</td><td>$25/session</td><td>On-demand or recurring</td><td>Monthly membership</td><td><span style="color:var(--gold);">◐ Q3 2025</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Trust Banner -->
+  <div class="trust-banner reveal">
+    <div>
+      <div class="trust-item-icon">🔐</div>
+      <div class="trust-item-title">Verified Pros</div>
+      <div class="trust-item-desc">Every professional is background-checked, police-verified, and reference-confirmed before their first booking.</div>
+    </div>
+    <div>
+      <div class="trust-item-icon">💳</div>
+      <div class="trust-item-title">Pay Only When Satisfied</div>
+      <div class="trust-item-desc">Our unique completion code system means payment is released only when you approve the job is done.</div>
+    </div>
+    <div>
+      <div class="trust-item-icon">📍</div>
+      <div class="trust-item-title">Real-Time Tracking</div>
+      <div class="trust-item-desc">GPS tracking and live ETAs from the moment your pro leaves for your home.</div>
+    </div>
+    <div>
+      <div class="trust-item-icon">🛡️</div>
+      <div class="trust-item-title">100% Guarantee</div>
+      <div class="trust-item-desc">Not satisfied? We'll redo the service free or issue a full refund. No questions asked.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section style="background:var(--navy);padding:100px 8%;text-align:center;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%, rgba(201,168,76,0.04), transparent);pointer-events:none;"></div>
+  <div class="section-label" style="justify-content:center;margin-bottom:20px;">Ready to Book?</div>
+  <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:500;line-height:1.1;color:var(--white);margin-bottom:20px;">Your first service,<br><em style="color:var(--gold);">50% off.</em></h2>
+  <p style="font-size:1rem;color:var(--white-dim);margin-bottom:48px;max-width:480px;margin-left:auto;margin-right:auto;">No credit card required to join the waitlist. We'll notify you the moment we're live in your Bay Area ZIP.</p>
+  <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+    <a class="btn-hero" onclick="openModal('modalBook')">Book a Service — $0 Fee</a>
+    <a class="btn-hero-outline" href="contact.html">Have Questions? Contact Us</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">Vesta</div>
+      <p class="footer-tagline">The Bay Area's most trusted full-service home marketplace.</p>
+      <div class="footer-social"><a href="#">𝕏</a><a href="#">in</a><a href="#">f</a></div>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links"><li><a href="services.html">Home Cleaning</a></li><li><a href="services.html">Laundry & Folding</a></li><li><a href="services.html">Childcare</a></li><li><a href="services.html">Meal Prep</a></li></ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links"><li><a href="about.html">Our Story</a></li><li><a href="about.html#values">Our Values</a></li><li><a href="about.html#roadmap">Roadmap</a></li></ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links"><li><a href="contact.html">Get in Touch</a></li><li><a onclick="openModal('modalPro')">Join as a Pro</a></li><li><a href="contact.html">Support</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Vesta Home Services, LLC. All rights reserved.</div>
+    <div class="footer-legal"><a href="#">Privacy</a><a href="#">Terms</a></div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="assets/js/vesta.js"></script>
+<script>
+/* Filter functionality */
+const filterBtns = document.querySelectorAll('.filter-btn');
+const categoryBlocks = document.querySelectorAll('.category-block');
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    categoryBlocks.forEach(block => {
+      if (filter === 'all' || block.dataset.category === filter) {
+        block.style.display = '';
+      } else {
+        block.style.display = 'none';
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>

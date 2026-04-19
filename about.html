@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Vesta Home Services</title>
+<meta name="description" content="Learn about Vesta's mission to make home services as trusted and easy as turning on a tap. Our story, values, team, and roadmap.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/vesta.css">
+<style>
+/* ─── MISSION SECTION ────────────────────── */
+.mission-split {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
+}
+.mission-quote-block {
+  background: linear-gradient(135deg, rgba(201,168,76,0.06), rgba(201,168,76,0.02));
+  border: 1px solid var(--border); border-radius: 20px; padding: 48px;
+  position: sticky; top: 100px;
+}
+.mission-quote-mark { font-family: 'Cormorant Garamond', serif; font-size: 80px; color: var(--gold); line-height: 0.7; opacity: 0.6; margin-bottom: 20px; display: block; }
+.mission-quote-text { font-family: 'Cormorant Garamond', serif; font-size: 1.65rem; font-style: italic; color: var(--white); line-height: 1.5; margin-bottom: 32px; }
+.mission-attr { font-size: 0.78rem; color: var(--gold); letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; }
+
+/* ─── VALUES ─────────────────────────────── */
+.values-list { display: flex; flex-direction: column; gap: 0; }
+.value-row {
+  padding: 32px 0; border-bottom: 1px solid var(--border);
+  display: grid; grid-template-columns: 56px 1fr; gap: 24px; align-items: start;
+  transition: all 0.3s; cursor: default;
+}
+.value-row:hover .value-num { color: var(--gold); }
+.value-num { font-family: 'Space Mono', monospace; font-size: 0.8rem; color: rgba(201,168,76,0.4); padding-top: 4px; transition: color 0.3s; }
+.value-icon { font-size: 1.6rem; margin-bottom: 12px; }
+.value-title { font-size: 1.25rem; font-weight: 600; color: var(--white); margin-bottom: 10px; }
+.value-desc { font-size: 0.9rem; color: var(--white-dim); line-height: 1.7; }
+
+/* ─── STATS ──────────────────────────────── */
+.stats-section { background: var(--navy-mid); }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+.stat-block {
+  background: var(--navy-card); padding: 48px 36px;
+  text-align: center; position: relative; overflow: hidden; transition: background 0.3s;
+}
+.stat-block::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0; transition: opacity 0.4s; }
+.stat-block:hover { background: var(--navy-hover); }
+.stat-block:hover::before { opacity: 1; }
+.stat-num { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 600; color: var(--gold); line-height: 1; }
+.stat-label { font-size: 0.82rem; color: var(--white-dim); margin-top: 10px; line-height: 1.5; }
+
+/* ─── PERSONAS ───────────────────────────── */
+.persona-section { background: var(--navy); }
+.personas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+.persona-card-large {
+  background: var(--navy-card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 32px; transition: all 0.3s;
+}
+.persona-card-large:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+.persona-avatar-lg {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: linear-gradient(135deg, rgba(201,168,76,0.2), rgba(201,168,76,0.05));
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; margin-bottom: 20px;
+}
+.persona-name-lg { font-size: 1.2rem; font-weight: 600; color: var(--white); margin-bottom: 4px; }
+.persona-role-lg { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold); margin-bottom: 16px; }
+.persona-detail-row { display: flex; gap: 10px; margin-bottom: 8px; }
+.persona-detail-label { font-size: 0.75rem; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 0.08em; width: 90px; flex-shrink: 0; padding-top: 1px; }
+.persona-detail-val { font-size: 0.85rem; color: var(--white-dim); line-height: 1.5; }
+
+/* ─── ROADMAP ─────────────────────────────── */
+.roadmap-section { background: var(--navy-mid); }
+.timeline-full { display: grid; grid-template-columns: 1fr 40px 1fr; gap: 0; position: relative; }
+.timeline-line { display: flex; flex-direction: column; align-items: center; padding-top: 10px; }
+.timeline-line::before { content: ''; width: 1px; height: 100%; background: linear-gradient(to bottom, var(--gold) 0%, rgba(201,168,76,0.2) 100%); }
+.timeline-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 4px rgba(201,168,76,0.15); position: absolute; left: 50%; transform: translateX(-50%); }
+.tl-full-item { display: contents; }
+.tl-left { text-align: right; padding: 0 32px 48px 0; }
+.tl-right { padding: 0 0 48px 32px; }
+.tl-dot-col { position: relative; }
+.tl-phase-tag { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); background: rgba(201,168,76,0.1); border: 1px solid var(--border); border-radius: 6px; padding: 5px 14px; margin-bottom: 12px; }
+.tl-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--white); margin-bottom: 10px; }
+.tl-desc { font-size: 0.88rem; color: var(--white-dim); line-height: 1.7; }
+
+/* ─── MARKET ─────────────────────────────── */
+.market-section { background: var(--navy); }
+.market-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.market-stat { margin-bottom: 36px; }
+.market-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 600; color: var(--gold); }
+.market-stat-label { font-size: 0.85rem; color: var(--white-dim); margin-top: 4px; }
+.market-stat-bar { height: 4px; background: rgba(201,168,76,0.15); border-radius: 2px; margin-top: 12px; overflow: hidden; }
+.market-stat-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-light)); border-radius: 2px; }
+
+@media(max-width:900px){ .mission-split { grid-template-columns: 1fr; } .stats-grid { grid-template-columns: 1fr 1fr; } .timeline-full { grid-template-columns: 1fr; } .tl-dot-col { display: none; } .tl-left { text-align: left; padding: 0 0 32px 0; } .tl-right { padding: 0 0 32px 0; } .market-grid { grid-template-columns: 1fr; } }
+@media(max-width:600px){ .stats-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modalPro">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modalPro')">×</button>
+    <h3>Join as a Vesta Professional</h3>
+    <p>Earn $3,000–$8,000/month with flexible hours.</p>
+    <input type="text" placeholder="Full Name *" id="proName">
+    <input type="email" placeholder="Email Address *" id="proEmail">
+    <input type="tel" placeholder="Phone Number">
+    <select id="proService"><option value="">Select Service Type</option><option>Home Cleaning</option><option>Childcare / Nanny</option><option>Meal Prep / Chef</option><option>Laundry Services</option></select>
+    <button class="btn-gold" onclick="submitPro()">Apply Now →</button>
+    <p class="modal-note">Background check required. Reviewed within 48 hours.</p>
+  </div>
+</div>
+<div class="modal-overlay" id="modalBook">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modalBook')">×</button>
+    <h3>Book Your First Service</h3>
+    <p>Get 50% off your first booking.</p>
+    <input type="text" placeholder="Full Name *" id="bookName">
+    <input type="email" placeholder="Email Address">
+    <input type="text" placeholder="ZIP Code (Bay Area only)">
+    <select><option value="">Select Service Type</option><option>Home Cleaning</option><option>Childcare / Nanny</option><option>Meal Prep / Chef</option><option>Laundry Services</option></select>
+    <button class="btn-gold" onclick="submitBook()">Get Early Access →</button>
+    <p class="modal-note">Launching Q3 2025.</p>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo"><div class="nav-logo-icon">V</div>Vesta</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a class="btn-ghost" onclick="openModal('modalPro')">Join as Pro</a>
+    <a class="btn-gold" onclick="openModal('modalBook')">Book a Service</a>
+  </div>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+  <div class="nav-mobile-cta"><a class="btn-ghost" onclick="openModal('modalPro')">Join as Pro</a><a class="btn-gold" onclick="openModal('modalBook')">Book a Service</a></div>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-dots"></div>
+  <div class="page-hero-label">Our Story</div>
+  <h1>Built with purpose.<br><em>Launched with precision.</em></h1>
+  <p>Vesta was founded on a simple belief: home services should be as easy, trusted, and reliable as turning on a tap. We're building the platform that makes that a reality for Bay Area families and professionals alike.</p>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span class="marquee-item">Trust Above All</span><span class="marquee-item">Radical Transparency</span><span class="marquee-item">Professional Dignity</span><span class="marquee-item">Bay Area · 2025</span><span class="marquee-item">500+ Verified Pros</span><span class="marquee-item">15-Min Match</span><span class="marquee-item">4.9★ Rating</span><span class="marquee-item">Zero Booking Fee</span>
+    <span class="marquee-item">Trust Above All</span><span class="marquee-item">Radical Transparency</span><span class="marquee-item">Professional Dignity</span><span class="marquee-item">Bay Area · 2025</span><span class="marquee-item">500+ Verified Pros</span><span class="marquee-item">15-Min Match</span><span class="marquee-item">4.9★ Rating</span><span class="marquee-item">Zero Booking Fee</span>
+  </div>
+</div>
+
+<!-- MISSION -->
+<section style="background:var(--navy);" id="mission">
+  <div class="section-label reveal">Mission</div>
+  <div class="mission-split">
+    <div class="mission-quote-block reveal">
+      <span class="mission-quote-mark">"</span>
+      <div class="mission-quote-text">To make expert home services as easy, trusted, and reliable as turning on a tap — for customers who demand quality and professionals who deserve dignity.</div>
+      <div class="mission-attr">— Vesta Mission Statement · 2025</div>
+    </div>
+    <div>
+      <h2 class="section-title reveal reveal-delay-1" style="margin-bottom:24px;">Why Vesta <em>exists.</em></h2>
+      <p style="font-size:1rem;color:var(--white-dim);line-height:1.8;margin-bottom:20px;" class="reveal reveal-delay-2">The home services industry is fundamentally broken. TaskRabbit and Thumbtack are glorified classifieds — they hand you a stranger's phone number and call it a service. Handy covers two categories. Care.com hides professionals behind a subscription wall.</p>
+      <p style="font-size:1rem;color:var(--white-dim);line-height:1.8;margin-bottom:20px;" class="reveal reveal-delay-3">Meanwhile, the professionals doing this work — cleaners, nannies, chefs, laundry specialists — are treated as commodities. They hustle for leads, get paid inconsistently, and receive none of the benefits that come with steady employment.</p>
+      <p style="font-size:1rem;color:var(--white-dim);line-height:1.8;margin-bottom:32px;" class="reveal reveal-delay-4">Vesta was created to fix both sides of this equation. Customers get a white-glove, zero-friction experience with verified professionals and fixed prices. Professionals get a steady income stream, dignified work, and benefits access. Everyone wins.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;" class="reveal reveal-delay-5">
+        <a class="btn-gold" onclick="openModal('modalBook')">Book a Service</a>
+        <a class="btn-ghost" onclick="openModal('modalPro')">Join as a Pro</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="section-label reveal" style="justify-content:center;text-align:center;display:flex;">By the Numbers</div>
+  <h2 class="section-title reveal reveal-delay-1" style="text-align:center;max-width:100%;margin-bottom:48px;">Vesta by <em>the numbers.</em></h2>
+  <div class="stats-grid">
+    <div class="stat-block reveal"><div class="stat-num">500+</div><div class="stat-label">Verified professionals onboarded and ready at launch</div></div>
+    <div class="stat-block reveal reveal-delay-1"><div class="stat-num">4.9★</div><div class="stat-label">Average professional rating across all bookings</div></div>
+    <div class="stat-block reveal reveal-delay-2"><div class="stat-num">15min</div><div class="stat-label">AI match guarantee for any emergency booking</div></div>
+    <div class="stat-block reveal reveal-delay-3"><div class="stat-num">$8K</div><div class="stat-label">Max monthly take-home for top-tier professionals</div></div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section style="background:var(--navy);" id="values">
+  <div class="section-label reveal">Our Values</div>
+  <h2 class="section-title reveal reveal-delay-1">What we stand <em>for.</em></h2>
+  <p class="section-subtitle reveal reveal-delay-2">These aren't aspirational words on a wall — they're the operating principles that shape every product decision, every partnership, and every hire we make.</p>
+  <div class="values-list">
+    <div class="value-row reveal">
+      <div class="value-num">01</div>
+      <div>
+        <div class="value-icon">🛡️</div>
+        <div class="value-title">Trust Above All</div>
+        <div class="value-desc">Every professional on Vesta undergoes background checks, police verification, sex offender registry screening, and reference confirmation before their first booking. Trust is not a feature — it's the foundation of everything we build. We will never cut corners on safety, no matter the speed pressure or cost.</div>
+      </div>
+    </div>
+    <div class="value-row reveal reveal-delay-1">
+      <div class="value-num">02</div>
+      <div>
+        <div class="value-icon">🔍</div>
+        <div class="value-title">Radical Transparency</div>
+        <div class="value-desc">Fixed pricing. No hidden fees. No bidding wars. No surprise charges. Professionals see exactly what they earn and what commission they pay. Customers see exactly what they pay — before they book. Transparency isn't just honest; it's good business. It builds the kind of trust that makes people come back.</div>
+      </div>
+    </div>
+    <div class="value-row reveal reveal-delay-2">
+      <div class="value-num">03</div>
+      <div>
+        <div class="value-icon">🤝</div>
+        <div class="value-title">Professional Dignity</div>
+        <div class="value-desc">The people who clean homes, care for children, and prepare meals are professionals — not gig workers to be exploited. Vesta pays fairly, pays on time, and provides tools that help professionals grow their income and build their reputation. Benefits access, performance-based commission reductions, and career development are core to what we offer.</div>
+      </div>
+    </div>
+    <div class="value-row reveal reveal-delay-3">
+      <div class="value-num">04</div>
+      <div>
+        <div class="value-icon">⚡</div>
+        <div class="value-title">Operational Excellence</div>
+        <div class="value-desc">A 15-minute match guarantee is a bold promise. Keeping it requires outstanding engineering, deep supply development, and relentless process optimization. We don't ship features — we ship experiences. Every booking should feel effortless, every interaction should feel considered, every outcome should meet the gold standard we've set for ourselves.</div>
+      </div>
+    </div>
+    <div class="value-row reveal reveal-delay-4">
+      <div class="value-num">05</div>
+      <div>
+        <div class="value-icon">🌱</div>
+        <div class="value-title">Long-Term Thinking</div>
+        <div class="value-desc">We're building a company that will last decades, not a feature to flip in 18 months. That means investing in professional relationships, building a brand that homeowners recommend to their neighbors, and expanding deliberately — Bay Area first, then nationwide. Speed matters, but sustainable speed matters more.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONAS -->
+<section class="persona-section">
+  <div class="section-label reveal">Who We Serve</div>
+  <h2 class="section-title reveal reveal-delay-1">Built for real <em>people.</em></h2>
+  <p class="section-subtitle reveal reveal-delay-2">Vesta serves two distinct communities — discerning Bay Area homeowners and skilled service professionals — both of whom deserve a better experience than today's market offers.</p>
+  <div class="personas-grid">
+    <div class="persona-card-large reveal reveal-delay-1">
+      <div class="persona-avatar-lg">👩‍💼</div>
+      <div class="persona-name-lg">Sarah, 38</div>
+      <div class="persona-role-lg">Working Parent · San Francisco</div>
+      <div class="persona-detail-row"><div class="persona-detail-label">Goals</div><div class="persona-detail-val">Reliable weekly cleaning + trusted childcare for two kids under six</div></div>
+      <div class="persona-detail-row"><div class="persona-detail-label">Pain Points</div><div class="persona-detail-val">Previous bad experiences with unverified freelancers. No fixed pricing on other platforms.</div></div>
+      <div class="persona-detail-row"><div class="persona-detail-label">What She Loves</div><div class="persona-detail-val">60-second booking, GPS tracking, knowing exactly who's coming to her home</div></div>
+    </div>
+    <div class="persona-card-large reveal reveal-delay-2">
+      <div class="persona-avatar-lg">🔧</div>
+      <div class="persona-name-lg">Marcus, 44</div>
+      <div class="persona-role-lg">Home Cleaner · Oakland</div>
+      <div class="persona-detail-row"><div class="persona-detail-label">Goals</div><div class="persona-detail-val">Stable, flexible income. Grow client base without cold marketing.</div></div>
+      <div class="persona-detail-row"><div class="persona-detail-label">Pain Points</div><div class="persona-detail-val">Platforms that take too much commission. Inconsistent payouts. No respect for his expertise.</div></div>
+      <div class="persona-detail-row"><div class="persona-detail-label">What He Loves</div><div class="persona-detail-val">Weekly deposits, flexible scheduling, transparent earnings dashboard</div></div>
+    </div>
+    <div class="persona-card-large reveal reveal-delay-3">
+      <div class="persona-avatar-lg">👶</div>
+      <div class="persona-name-lg">Priya, 31</div>
+      <div class="persona-role-lg">New Parent · Palo Alto</div>
+      <div class="persona-detail-row"><div class="persona-detail-label">Goals</div><div class="persona-detail-val">Find a trusted, CPR-certified nanny quickly — ideally bilingual</div></div>
+      <div class="persona-detail-row"><div class="persona-detail-label">Pain Points</div><div class="persona-detail-val">Overwhelming number of options, no trust signals, no real-time updates</div></div>
+      <div class="persona-detail-row"><div class="persona-detail-label">What She Loves</div><div class="persona-detail-val">Background check badge, real-time tracking, in-app chat with professional</div></div>
+    </div>
+    <div class="persona-card-large reveal reveal-delay-4">
+      <div class="persona-avatar-lg">🏢</div>
+      <div class="persona-name-lg">Jason, 52</div>
+      <div class="persona-role-lg">Property Manager · Peninsula</div>
+      <div class="persona-detail-row"><div class="persona-detail-label">Goals</div><div class="persona-detail-val">Regular cleaning + turnover service for 12 Airbnb units</div></div>
+      <div class="persona-detail-row"><div class="persona-detail-label">Pain Points</div><div class="persona-detail-val">No enterprise dashboard. Manual scheduling. Inconsistent quality across units.</div></div>
+      <div class="persona-detail-row"><div class="persona-detail-label">What He Loves</div><div class="persona-detail-val">Enterprise dashboard (Phase 3), Airbnb API integration, volume pricing</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="roadmap-section" id="roadmap">
+  <div class="section-label reveal">Roadmap</div>
+  <h2 class="section-title reveal reveal-delay-1">Where we're <em>headed.</em></h2>
+  <p class="section-subtitle reveal reveal-delay-2">From SF launch to national scale — a deliberate, phased expansion built for quality over speed.</p>
+
+  <div style="position:relative;margin-top:60px;">
+    <div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--gold),rgba(201,168,76,0.1));transform:translateX(-50%);"></div>
+
+    <!-- Phase 1 -->
+    <div style="display:grid;grid-template-columns:1fr 80px 1fr;align-items:start;margin-bottom:60px;" class="reveal">
+      <div style="padding-right:40px;text-align:right;">
+        <div style="display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);background:rgba(201,168,76,0.1);border:1px solid var(--border);border-radius:6px;padding:5px 14px;margin-bottom:14px;">Phase 1 · Now</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--white);margin-bottom:10px;">SF & Peninsula Launch</div>
+        <div style="font-size:0.88rem;color:var(--white-dim);line-height:1.7;">Home cleaning, laundry, childcare, and cooking. 500+ verified professionals onboarded. iOS/Android app launching Q3 2025. Target: 10,000 customers in first 12 months.</div>
+      </div>
+      <div style="display:flex;justify-content:center;padding-top:8px;"><div style="width:18px;height:18px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 5px rgba(201,168,76,0.2);flex-shrink:0;"></div></div>
+      <div style="padding-left:40px;"></div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div style="display:grid;grid-template-columns:1fr 80px 1fr;align-items:start;margin-bottom:60px;" class="reveal reveal-delay-1">
+      <div style="padding-right:40px;"></div>
+      <div style="display:flex;justify-content:center;padding-top:8px;"><div style="width:18px;height:18px;border-radius:50%;background:rgba(201,168,76,0.4);border:2px solid var(--gold);box-shadow:0 0 0 5px rgba(201,168,76,0.1);flex-shrink:0;"></div></div>
+      <div style="padding-left:40px;">
+        <div style="display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);background:rgba(201,168,76,0.1);border:1px solid var(--border);border-radius:6px;padding:5px 14px;margin-bottom:14px;">Phase 2 · Q3 2025</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--white);margin-bottom:10px;">Service Expansion</div>
+        <div style="font-size:0.88rem;color:var(--white-dim);line-height:1.7;">Beauty & wellness, home improvement, fitness training, moving & organizing, pet care, and specialized cleaning. Subscription plan launch. Enterprise beta program opens.</div>
+      </div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div style="display:grid;grid-template-columns:1fr 80px 1fr;align-items:start;margin-bottom:60px;" class="reveal reveal-delay-2">
+      <div style="padding-right:40px;text-align:right;">
+        <div style="display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(201,168,76,0.6);background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.15);border-radius:6px;padding:5px 14px;margin-bottom:14px;">Phase 3 · 2026</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--white);margin-bottom:10px;">Full Bay Area Coverage</div>
+        <div style="font-size:0.88rem;color:var(--white-dim);line-height:1.7;">Marin, East Bay, South Bay, Napa/Sonoma. Airbnb API integration. Enterprise/B2B dashboard. Property management firm partnerships. Target: $10M GMV.</div>
+      </div>
+      <div style="display:flex;justify-content:center;padding-top:8px;"><div style="width:18px;height:18px;border-radius:50%;background:rgba(201,168,76,0.2);border:2px solid rgba(201,168,76,0.4);flex-shrink:0;"></div></div>
+      <div style="padding-left:40px;"></div>
+    </div>
+
+    <!-- Series A -->
+    <div style="display:grid;grid-template-columns:1fr 80px 1fr;align-items:start;" class="reveal reveal-delay-3">
+      <div style="padding-right:40px;"></div>
+      <div style="display:flex;justify-content:center;padding-top:8px;"><div style="width:18px;height:18px;border-radius:50%;background:rgba(201,168,76,0.1);border:2px solid rgba(201,168,76,0.25);flex-shrink:0;"></div></div>
+      <div style="padding-left:40px;">
+        <div style="display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(201,168,76,0.5);background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.12);border-radius:6px;padding:5px 14px;margin-bottom:14px;">Series A · 2026</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--white);margin-bottom:10px;">National Scale</div>
+        <div style="font-size:0.88rem;color:var(--white-dim);line-height:1.7;">NYC, LA, Chicago — replicating the full-stack Bay Area model. Target: 50,000+ professionals and $100M+ GMV. Series A fundraise to fuel expansion.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="market-section">
+  <div class="section-label reveal">Market Opportunity</div>
+  <div class="market-grid">
+    <div>
+      <h2 class="section-title reveal reveal-delay-1">A $8.2B market<br><em>ready to be won.</em></h2>
+      <p style="font-size:1rem;color:var(--white-dim);line-height:1.8;margin-bottom:32px;" class="reveal reveal-delay-2">The US home services market is massive, growing at 28% CAGR, and almost entirely fragmented. The Bay Area alone represents over $620M in addressable spending — and no single platform has built the trust infrastructure to claim it.</p>
+      <p style="font-size:1rem;color:var(--white-dim);line-height:1.8;" class="reveal reveal-delay-3">Vesta's full-stack approach — AI matching, verified professionals, GPS tracking, code-based payments — creates a moat that lead generators simply cannot replicate. We're not competing with TaskRabbit; we're replacing the entire category.</p>
+    </div>
+    <div>
+      <div class="market-stat reveal reveal-delay-1">
+        <div class="market-stat-num">$8.2B</div>
+        <div class="market-stat-label">TAM — US Home Services Market (2025)</div>
+        <div class="market-stat-bar"><div class="market-stat-fill" style="width:100%;"></div></div>
+      </div>
+      <div class="market-stat reveal reveal-delay-2">
+        <div class="market-stat-num">$620M</div>
+        <div class="market-stat-label">SAM — Bay Area Home Services</div>
+        <div class="market-stat-bar"><div class="market-stat-fill" style="width:75%;"></div></div>
+      </div>
+      <div class="market-stat reveal reveal-delay-3">
+        <div class="market-stat-num">$62M</div>
+        <div class="market-stat-label">SOM — Vesta Year 1 Addressable (10% SAM)</div>
+        <div class="market-stat-bar"><div class="market-stat-fill" style="width:10%;"></div></div>
+      </div>
+      <div class="market-stat reveal reveal-delay-4">
+        <div class="market-stat-num">28%</div>
+        <div class="market-stat-label">CAGR — Online Home Services Market</div>
+        <div class="market-stat-bar"><div class="market-stat-fill" style="width:28%;"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:var(--navy-mid);padding:100px 8%;text-align:center;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%, rgba(201,168,76,0.04), transparent);pointer-events:none;"></div>
+  <div class="section-label" style="justify-content:center;margin-bottom:20px;">Join Us</div>
+  <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:500;line-height:1.1;color:var(--white);margin-bottom:20px;">We're just <em>getting started.</em></h2>
+  <p style="font-size:1rem;color:var(--white-dim);margin-bottom:48px;max-width:480px;margin-left:auto;margin-right:auto;">Whether you're a Bay Area homeowner looking for better service or a skilled professional ready to thrive — Vesta is built for you.</p>
+  <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+    <a class="btn-hero" onclick="openModal('modalBook')">Book a Service</a>
+    <a class="btn-hero-outline" onclick="openModal('modalPro')">Join as a Professional</a>
+    <a class="btn-hero-outline" href="contact.html">Get in Touch</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">Vesta</div>
+      <p class="footer-tagline">The Bay Area's most trusted full-service home marketplace.</p>
+      <div class="footer-social"><a href="#">𝕏</a><a href="#">in</a><a href="#">f</a></div>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links"><li><a href="services.html">Home Cleaning</a></li><li><a href="services.html">Laundry & Folding</a></li><li><a href="services.html">Childcare</a></li><li><a href="services.html">Meal Prep</a></li></ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links"><li><a href="about.html">Our Story</a></li><li><a href="about.html#values">Our Values</a></li><li><a href="about.html#roadmap">Roadmap</a></li></ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links"><li><a href="contact.html">Get in Touch</a></li><li><a onclick="openModal('modalPro')">Join as a Pro</a></li><li><a href="contact.html">Support</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Vesta Home Services, LLC. All rights reserved.</div>
+    <div class="footer-legal"><a href="#">Privacy</a><a href="#">Terms</a></div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="assets/js/vesta.js"></script>
+</body>
+</html>
